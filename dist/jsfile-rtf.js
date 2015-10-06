@@ -157,7 +157,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        var unParsedControlWords = {};
 	        var result = {
 	            name: fileName,
-	            pages: []
+	            content: []
 	        };
 
 	        if (ch) {
@@ -168,7 +168,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            /* begin TODO: remove when handle the pages breaks */
 	            currentElementParent.children.push(currentElement);
 	            page.children.push(currentElementParent);
-	            result.pages.push(page);
+	            result.content.push(page);
 	            /* end */
 	        }
 

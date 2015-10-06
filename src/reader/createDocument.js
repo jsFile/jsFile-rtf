@@ -16,7 +16,7 @@ export default function (text) {
         const unParsedControlWords = {};
         const result = {
             name: fileName,
-            pages: []
+            content: []
         };
 
         if (ch) {
@@ -27,7 +27,7 @@ export default function (text) {
             /* begin TODO: remove when handle the pages breaks */
             currentElementParent.children.push(currentElement);
             page.children.push(currentElementParent);
-            result.pages.push(page);
+            result.content.push(page);
             /* end */
         }
 
