@@ -15,7 +15,9 @@ export default function (text) {
         const ignoreGroups = [];
         const unParsedControlWords = {};
         const result = {
-            name: fileName,
+            meta: {
+                name: fileName
+            },
             content: []
         };
 

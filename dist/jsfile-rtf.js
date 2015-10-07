@@ -156,7 +156,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	        var ignoreGroups = [];
 	        var unParsedControlWords = {};
 	        var result = {
-	            name: fileName,
+	            meta: {
+	                name: fileName
+	            },
 	            content: []
 	        };
 
