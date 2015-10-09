@@ -1,19 +1,13 @@
-import {Document, Engine} from 'JsFile';
-import parseControlWord from './parseControlWord';
-const {halfTabAsSpaces} = Engine;
-const imageTagName = 'IMG';
+import {Document} from 'JsFile';
+import isPlainText from './isPlainText';
+import getChar from './getChar';
+import convertMacRoman from './convertMacRoman';
+import parsersList from './parsersList';
+import addContent from './addContent';
 
-export default function (text) {
+export default function (text = '') {
     const fileName = this.fileName;
     return new Promise((resolve) => {
-        let i = 0;
-        let braceCounter = 0;
-        let currentElement;
-        let currentElementParent;
-        let page;
-        let ch = text && text[i];
-        const ignoreGroups = [];
-        const unParsedControlWords = {};
         const result = {
             meta: {
                 name: fileName
@@ -21,96 +15,194 @@ export default function (text) {
             content: []
         };
 
-        if (ch) {
-            page = Document.elementPrototype;
-            currentElementParent = Document.elementPrototype;
-            currentElement = Document.elementPrototype;
-
-            /* begin TODO: remove when handle the pages breaks */
-            currentElementParent.children.push(currentElement);
-            page.children.push(currentElementParent);
-            result.content.push(page);
-            /* end */
+        if (!text[0]) {
+            return resolve(new Document(result));
         }
 
-        while (ch) {
-            const next = text[i + 1];
+        //Escape Unicode
+        text = text.replace(/\\'3[fF]/g, '?');
+        const len = text.length;
+        const stack = [];
+        const fonts = [];
+        let j = -1;
+        let page = Document.elementPrototype;
+        let paragraph = Document.elementPrototype;
+        paragraph.properties.tagName = 'P';
+        page.children.push(paragraph);
+        result.content.push(page);
 
-            if (ch === '\\') {
-                if (next !== '\\') {
-                    i = parseControlWord({
-                        text,
-                        currentElement,
-                        currentElementParent,
-                        ignoreGroups,
-                        braceCounter,
-                        unParsedControlWords,
-                        index: i
-                    });
-                } else {
-                    // is empty
-                    if (!ignoreGroups[0]) {
-                        if (!currentElement) {
-                            currentElement = Document.elementPrototype;
+        for (let i = 0; i < len; i++) {
+            const ch = text[i];
+            const stackData = stack[j];
 
-                            if (currentElementParent.properties.tagName !== imageTagName) {
-                                currentElementParent.children.push(currentElement);
+            switch (ch) {
+                case '\\':
+                    if (!stackData) {
+                        continue;
+                    }
+
+                    let next = text[i + 1];
+                    if (next === '\\' && isPlainText(stackData)) {
+                        addContent(paragraph, {
+                            textContent: next
+                        });
+                    } else if (next === '~' && isPlainText(stackData)) {
+                        addContent(paragraph, {
+                            textContent: ' '
+                        });
+                    } else if (next === '_' && isPlainText(stackData)) {
+                        addContent(paragraph, {
+                            textContent: '-'
+                        });
+                    } else if (next === '*') {
+                        stackData[next] = true;
+                    } else if (next === `'`) {
+                        //move index on 2 points
+                        i += 2;
+                        const hex = text.substr(i, 2);
+                        if (isPlainText(stackData)) {
+                            const dec = parseInt(hex, 16);
+                            if (!stackData.mac || fonts[stackData.f] == 77) {
+                                addContent(paragraph, {
+                                    textContent: convertMacRoman(dec)
+                                });
+                            } else if (stackData.ansicpg == '1251' || stackData.lang == '1029') {
+                                addContent(paragraph, {
+                                    textContent: getChar(dec)
+                                });
+                            } else {
+                                addContent(paragraph, {
+                                    textContent: String.fromCharCode(dec)
+                                });
+                            }
+                        }
+                    } else if (next >= 'a' && next <= 'z' || next >= 'A' && next <= 'Z') {
+                        let word = '';
+                        let param = '';
+                        let m = 0;
+
+                        for (let k = i + 1; k < len; k++, m++) {
+                            next = text[k];
+
+                            // if it's a letter and we don't have the params of word - break the loop.
+                            if (next >= 'a' && next <= 'z' || next >= 'A' && next <= 'Z') {
+                                if (!param) {
+                                    word += next;
+                                } else {
+                                    break;
+                                }
+                            } else if (next >= '0' && next <= '9') {
+                                param += next;
+                            } else if (next === '-') {
+                                if (!param) {
+                                    param += next;
+                                } else {
+                                    break;
+                                }
+                            } else {
+                                break;
                             }
                         }
 
-                        if (currentElementParent.properties.tagName === imageTagName) {
-                            currentElementParent.attributes.src = (currentElementParent.attributes.src || '') + ch;
+                        i += m - 1;
+                        word = word.toLowerCase();
+                        let parsedContent = '';
+
+                        if (parsersList[word]) {
+                            let test = 1;
                         } else {
-                            currentElement.properties.textContent = (currentElement.properties.textContent || '') + ch;
+                            switch (word) {
+
+                                //decimal view of Unicode symbol
+                                case 'u':
+                                    parsedContent += String.fromCharCode(Number(param));
+                                    const delta = stackData.uc != null ? stackData.uc : 1;
+                                    if (delta > 0) {
+                                        i += delta;
+                                    }
+
+                                    break;
+                                case 'page':
+                                    page = Document.elementPrototype;
+                                    result.content.push(page);
+                                    break;
+                                case 'bin':
+                                    i += Number(param);//TODO: parse binary data
+                                    break;
+                                case 'tab':
+                                    addContent(paragraph, {
+                                        textContent: '\t'
+                                    });
+                                    break;
+                                case 'fcharset':
+                                    fonts[stackData.f] = param;
+                                    break;
+                                case 'par':
+                                    paragraph = Document.elementPrototype;
+                                    paragraph.properties.tagName = 'P';
+                                    page.children.push(paragraph);
+                                    break;
+                                default:
+                                    window.wds = window.wds || {};
+                                    window.wds[word] = window.wds[word] || 0;
+                                    window.wds[word]++;
+                                    stackData[word] = param || true;
+                            }
+                        }
+
+                        if (parsedContent && isPlainText(stackData)) {
+                            addContent(paragraph, {
+                                textContent: parsedContent
+                            });
+                        }
+                    } else {
+                        addContent(paragraph, {
+                            textContent: ' '
+                        });
+                    }
+
+                    i++;
+                    break;
+                case '{':
+                    j++;
+                    if (j === 0) {
+                        stack[j] = {};
+                    } else {
+                        const index = j - 1;
+                        stack[j] = {};
+
+                        for (let k in stack[index]) {
+                            if (stack[index].hasOwnProperty(k)) {
+                                stack[j][k] = stack[index][k];
+                            }
                         }
                     }
-                }
-            } else if (ch === '{') {
-                braceCounter++;
-            } else if (ch === '}') {
-                if (braceCounter === ignoreGroups[ignoreGroups.length - 1]) {
-                    ignoreGroups.pop();
-                }
 
-                braceCounter--;
-                if (currentElement && currentElement.properties.textContent) {
-                    if (currentElementParent.children.indexOf(currentElement) === -1) {
-                        currentElementParent.children.push(currentElement);
+                    break;
+                case '}':
+
+                    //group is over, remove the current level
+                    stack.pop();
+                    j--;
+                    break;
+                case '\0':
+                case '\r':
+                case '\f':
+                case '\b':
+                case '\t':
+                    break;
+                case '\n':
+                    addContent(paragraph, {
+                        textContent: ch
+                    });
+                    break;
+                default:
+                    if (stackData && isPlainText(stackData)) {
+                        addContent(paragraph, {
+                            textContent: ch
+                        });
                     }
-
-                    currentElement = Document.elementPrototype;
-                }
-            } else if (ch !== '\n' && ch !== '\r') {
-                let textContent = '';
-
-                // is empty
-                if (!ignoreGroups[0]) {
-                    if (!currentElement) {
-                        currentElement = Document.elementPrototype;
-
-                        if (currentElementParent.properties.tagName !== imageTagName) {
-                            currentElementParent.children.push(currentElement);
-                        }
-                    }
-
-                    if (ch === ' ' && next === ' ') {
-                        i++;
-                        textContent = halfTabAsSpaces;
-                    } else {
-                        textContent = ch;
-                    }
-
-                    if (currentElementParent.properties.tagName === imageTagName) {
-                        currentElementParent.attributes.src = (currentElementParent.attributes.src || '') + textContent;
-                    } else {
-                        currentElement.properties.textContent = (currentElement.properties.textContent || '') +
-                        textContent;
-                    }
-                }
             }
-
-            i++;
-            ch = text[i];
         }
 
         resolve(new Document(result));

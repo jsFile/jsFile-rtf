@@ -19,6 +19,10 @@ describe('jsFile-rtf', () => {
         assert.isFunction(RtfEngine);
     });
 
+    it('should have files for testing', () => {
+        assert.notEqual(Object.keys(files || {}).length, 0);
+    });
+
     it('should read the file', function () {
         this.timeout(15000);
         const queue = [];
@@ -37,7 +41,7 @@ describe('jsFile-rtf', () => {
                         assert.instanceOf(result, JsFile.Document, name);
                         const json = result.json();
                         const html = result.html();
-                        const text = html.textContent || '';
+                        const text = (html.textContent || '').trim();
                         assert.jsonSchema(json, documentSchema, name);
                         assert.notEqual(text.length, 0, `File ${name} shouldn't be empty`);
                         assert.notEqual(result.name.length, 0, `Engine should parse a name of file ${name}`);
