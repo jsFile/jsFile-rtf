@@ -38,7 +38,7 @@ export default function (text = '') {
             switch (ch) {
                 case '\\':
                     if (!stackData) {
-                        continue;
+                        break;
                     }
 
                     let next = text[i + 1];
@@ -109,21 +109,25 @@ export default function (text = '') {
                         let parsedContent = '';
 
                         if (parsersList[word]) {
-                            let test = 1;
+                            const {data, di} = parsersList[word]();
+                            i += (di || 0);
+                            addContent(paragraph, data);
                         } else {
                             switch (word) {
 
                                 //decimal view of Unicode symbol
                                 case 'u':
                                     parsedContent += String.fromCharCode(Number(param));
-                                    const delta = stackData.uc != null ? stackData.uc : 1;
+                                    const delta = stackData.uc != null ? Number(stackData.uc) : 1;
                                     if (delta > 0) {
                                         i += delta;
                                     }
 
                                     break;
                                 case 'page':
+                                    page.children.pop();
                                     page = Document.elementPrototype;
+                                    page.children.push(paragraph);
                                     result.content.push(page);
                                     break;
                                 case 'bin':
@@ -165,9 +169,8 @@ export default function (text = '') {
                     break;
                 case '{':
                     j++;
-                    if (j === 0) {
-                        stack[j] = {};
-                    } else {
+                    stack[j] = {};
+                    if (j > 0) {
                         const index = j - 1;
                         stack[j] = {};
 

@@ -191,7 +191,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            switch (ch) {
 	                case '\\':
 	                    if (!stackData) {
-	                        continue;
+	                        break;
 	                    }
 
 	                    var next = text[i + 1];
@@ -262,21 +262,29 @@ return /******/ (function(modules) { // webpackBootstrap
 	                        var parsedContent = '';
 
 	                        if (_parsersList2['default'][word]) {
-	                            var test = 1;
+	                            var _parsersList$word = _parsersList2['default'][word]();
+
+	                            var data = _parsersList$word.data;
+	                            var di = _parsersList$word.di;
+
+	                            i += di || 0;
+	                            (0, _addContent2['default'])(paragraph, data);
 	                        } else {
 	                            switch (word) {
 
 	                                //decimal view of Unicode symbol
 	                                case 'u':
 	                                    parsedContent += String.fromCharCode(Number(param));
-	                                    var delta = stackData.uc != null ? stackData.uc : 1;
+	                                    var delta = stackData.uc != null ? Number(stackData.uc) : 1;
 	                                    if (delta > 0) {
 	                                        i += delta;
 	                                    }
 
 	                                    break;
 	                                case 'page':
+	                                    page.children.pop();
 	                                    page = _JsFile.Document.elementPrototype;
+	                                    page.children.push(paragraph);
 	                                    result.content.push(page);
 	                                    break;
 	                                case 'bin':
@@ -303,7 +311,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                            }
 	                        }
 
-	                        if ((0, _isPlainText2['default'])(stackData)) {
+	                        if (parsedContent && (0, _isPlainText2['default'])(stackData)) {
 	                            (0, _addContent2['default'])(paragraph, {
 	                                textContent: parsedContent
 	                            });
@@ -318,9 +326,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    break;
 	                case '{':
 	                    j++;
-	                    if (j === 0) {
-	                        stack[j] = {};
-	                    } else {
+	                    stack[j] = {};
+	                    if (j > 0) {
 	                        var index = j - 1;
 	                        stack[j] = {};
 
@@ -456,13 +463,49 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 6 */
 /***/ function(module, exports) {
 
-	"use strict";
+	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
 	});
-	exports["default"] = {};
-	module.exports = exports["default"];
+	exports['default'] = {
+	    rquote: function rquote() {
+	        return {
+	            di: 1,
+	            data: {
+	                textContent: '’'
+	            }
+	        };
+	    },
+
+	    rdblquote: function rdblquote() {
+	        return {
+	            di: 1,
+	            data: {
+	                textContent: '”'
+	            }
+	        };
+	    },
+
+	    lquote: function lquote() {
+	        return {
+	            di: 1,
+	            data: {
+	                textContent: '‘'
+	            }
+	        };
+	    },
+
+	    ldblquote: function ldblquote() {
+	        return {
+	            di: 1,
+	            data: {
+	                textContent: '“'
+	            }
+	        };
+	    }
+	};
+	module.exports = exports['default'];
 
 /***/ },
 /* 7 */

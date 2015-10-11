@@ -1,6 +1,6 @@
 {
     "name": "jsfile-rtf",
-    "version": "0.1.3",
+    "version": "0.1.4",
     "description": "jsFile-rtf",
     "main": "dist/jsfile-rtf.js",
     "scripts": {
