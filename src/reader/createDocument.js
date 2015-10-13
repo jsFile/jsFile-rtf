@@ -184,6 +184,11 @@ export default function (text = '') {
                     break;
                 case '}':
 
+                    //clear old value
+                    const el = Document.elementPrototype;
+                    el.properties.tagName = 'SPAN';
+                    paragraph.children.push(el);
+
                     //group is over, remove the current level
                     stack.pop();
                     j--;

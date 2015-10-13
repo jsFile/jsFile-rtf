@@ -2,10 +2,9 @@ import {Document} from 'JsFile';
 
 export default (el, {textContent, children}) => {
 
-    //if (children) {
-    //
-    //} else
-    if (textContent) {
+    if (children) {
+        el.children.push.apply(el.children, children);
+    } else if (textContent) {
         const len = el.children.length;
         let child = el.children[len - 1];
 

@@ -152,7 +152,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _parsersList2 = _interopRequireDefault(_parsersList);
 
-	var _addContent = __webpack_require__(7);
+	var _addContent = __webpack_require__(15);
 
 	var _addContent2 = _interopRequireDefault(_addContent);
 
@@ -341,6 +341,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    break;
 	                case '}':
 
+	                    //clear old value
+	                    var el = _JsFile.Document.elementPrototype;
+	                    el.properties.tagName = 'SPAN';
+	                    paragraph.children.push(el);
+
 	                    //group is over, remove the current level
 	                    stack.pop();
 	                    j--;
@@ -461,6 +466,64 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 6 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	var _controlWordParsersSpecialRquote = __webpack_require__(7);
+
+	var _controlWordParsersSpecialRquote2 = _interopRequireDefault(_controlWordParsersSpecialRquote);
+
+	var _controlWordParsersSpecialRdblquote = __webpack_require__(8);
+
+	var _controlWordParsersSpecialRdblquote2 = _interopRequireDefault(_controlWordParsersSpecialRdblquote);
+
+	var _controlWordParsersSpecialLquote = __webpack_require__(9);
+
+	var _controlWordParsersSpecialLquote2 = _interopRequireDefault(_controlWordParsersSpecialLquote);
+
+	var _controlWordParsersSpecialLdblquote = __webpack_require__(10);
+
+	var _controlWordParsersSpecialLdblquote2 = _interopRequireDefault(_controlWordParsersSpecialLdblquote);
+
+	var _controlWordParsersFormattingB = __webpack_require__(11);
+
+	var _controlWordParsersFormattingB2 = _interopRequireDefault(_controlWordParsersFormattingB);
+
+	var _controlWordParsersFormattingI = __webpack_require__(12);
+
+	var _controlWordParsersFormattingI2 = _interopRequireDefault(_controlWordParsersFormattingI);
+
+	var _controlWordParsersFormattingUl = __webpack_require__(13);
+
+	var _controlWordParsersFormattingUl2 = _interopRequireDefault(_controlWordParsersFormattingUl);
+
+	var _controlWordParsersListListtext = __webpack_require__(14);
+
+	var _controlWordParsersListListtext2 = _interopRequireDefault(_controlWordParsersListListtext);
+
+	exports['default'] = {
+	    rquote: _controlWordParsersSpecialRquote2['default'],
+	    rdblquote: _controlWordParsersSpecialRdblquote2['default'],
+	    lquote: _controlWordParsersSpecialLquote2['default'],
+	    ldblquote: _controlWordParsersSpecialLdblquote2['default'],
+
+	    listtext: _controlWordParsersListListtext2['default'],
+
+	    b: _controlWordParsersFormattingB2['default'],
+	    i: _controlWordParsersFormattingI2['default'],
+	    ul: _controlWordParsersFormattingUl2['default']
+	};
+	module.exports = exports['default'];
+
+/***/ },
+/* 7 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -468,47 +531,186 @@ return /******/ (function(modules) { // webpackBootstrap
 	Object.defineProperty(exports, '__esModule', {
 	    value: true
 	});
-	exports['default'] = {
-	    rquote: function rquote() {
-	        return {
-	            di: 1,
-	            data: {
-	                textContent: '’'
-	            }
-	        };
-	    },
 
-	    rdblquote: function rdblquote() {
-	        return {
-	            di: 1,
-	            data: {
-	                textContent: '”'
-	            }
-	        };
-	    },
-
-	    lquote: function lquote() {
-	        return {
-	            di: 1,
-	            data: {
-	                textContent: '‘'
-	            }
-	        };
-	    },
-
-	    ldblquote: function ldblquote() {
-	        return {
-	            di: 1,
-	            data: {
-	                textContent: '“'
-	            }
-	        };
-	    }
+	exports['default'] = function () {
+	    return {
+	        di: 1,
+	        data: {
+	            textContent: '’'
+	        }
+	    };
 	};
+
 	module.exports = exports['default'];
 
 /***/ },
-/* 7 */
+/* 8 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
+
+	exports['default'] = function () {
+	    return {
+	        di: 1,
+	        data: {
+	            textContent: '”'
+	        }
+	    };
+	};
+
+	module.exports = exports['default'];
+
+/***/ },
+/* 9 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
+
+	exports['default'] = function () {
+	    return {
+	        di: 1,
+	        data: {
+	            textContent: '‘'
+	        }
+	    };
+	};
+
+	module.exports = exports['default'];
+
+/***/ },
+/* 10 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
+
+	exports['default'] = function () {
+	    return {
+	        di: 1,
+	        data: {
+	            textContent: '“'
+	        }
+	    };
+	};
+
+	module.exports = exports['default'];
+
+/***/ },
+/* 11 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
+
+	var _JsFile = __webpack_require__(1);
+
+	exports['default'] = function () {
+	    var el = _JsFile.Document.elementPrototype;
+	    el.properties.tagName = 'SPAN';
+	    el.style.fontWeight = 'bold';
+
+	    return {
+	        data: {
+	            children: [el]
+	        }
+	    };
+	};
+
+	module.exports = exports['default'];
+
+/***/ },
+/* 12 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
+
+	var _JsFile = __webpack_require__(1);
+
+	exports['default'] = function () {
+	    var el = _JsFile.Document.elementPrototype;
+	    el.properties.tagName = 'SPAN';
+	    el.style.fontStyle = 'italic';
+
+	    return {
+	        data: {
+	            children: [el]
+	        }
+	    };
+	};
+
+	module.exports = exports['default'];
+
+/***/ },
+/* 13 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
+
+	var _JsFile = __webpack_require__(1);
+
+	exports['default'] = function () {
+	    var el = _JsFile.Document.elementPrototype;
+	    el.properties.tagName = 'SPAN';
+	    el.style.textDecoration = 'underline';
+
+	    return {
+	        data: {
+	            children: [el]
+	        }
+	    };
+	};
+
+	module.exports = exports['default'];
+
+/***/ },
+/* 14 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
+
+	var _JsFile = __webpack_require__(1);
+
+	exports['default'] = function () {
+	    var el = _JsFile.Document.elementPrototype;
+	    el.properties.tagName = 'LI';
+
+	    return {
+	        data: {
+	            children: [el]
+	        }
+	    };
+	};
+
+	module.exports = exports['default'];
+
+/***/ },
+/* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -523,10 +725,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	    var textContent = _ref.textContent;
 	    var children = _ref.children;
 
-	    //if (children) {
-	    //
-	    //} else
-	    if (textContent) {
+	    if (children) {
+	        el.children.push.apply(el.children, children);
+	    } else if (textContent) {
 	        var len = el.children.length;
 	        var child = el.children[len - 1];
 
