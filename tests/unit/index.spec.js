@@ -24,9 +24,10 @@ describe('jsFile-rtf', () => {
     });
 
     it('should read the file', function () {
-        this.timeout(15000);
+        this.timeout(25000);
         const queue = [];
         let name;
+
         for (name in files) {
             if (files.hasOwnProperty(name)) {
                 (function (file, name) {

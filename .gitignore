@@ -1,4 +1,3 @@
-# Created by .ignore support plugin (hsz.mobi)
 ### Node template
 # Logs
 logs
@@ -27,7 +26,8 @@ build/Release
 # Dependency directory
 # https://www.npmjs.org/doc/misc/npm-faq.html#should-i-check-my-node_modules-folder-into-git
 node_modules
-.DS_Store
 .idea
+.DS_Store
 dist/workers
 tests/filesCache.js
+.coveralls.yml

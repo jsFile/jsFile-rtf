@@ -4,7 +4,10 @@ module.exports = function (grunt) {
             options: {
                 target: 'global'
             },
-            src: ['tests/files/**/*.*'],
+            src: [
+                'tests/files/**/*.*',
+                '!tests/files/**/RTF-Spec-1.7.*'
+            ],
             dest: 'tests/filesCache.js'
         }
     };
