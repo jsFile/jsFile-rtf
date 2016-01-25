@@ -56,25 +56,25 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	Object.defineProperty(exports, '__esModule', {
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
 
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
 	var _JsFile = __webpack_require__(1);
 
-	var _readerCreateDocument = __webpack_require__(2);
+	var _createDocument = __webpack_require__(2);
 
-	var _readerCreateDocument2 = _interopRequireDefault(_readerCreateDocument);
+	var _createDocument2 = _interopRequireDefault(_createDocument);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	/**
 	 * @description Supported files by engine
@@ -85,16 +85,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	    mime: ['text/rtf', 'application/rtf']
 	};
 
-	var RtfEngine = (function (_Engine) {
+	var RtfEngine = function (_Engine) {
 	    _inherits(RtfEngine, _Engine);
 
 	    function RtfEngine() {
 	        _classCallCheck(this, RtfEngine);
 
-	        _get(Object.getPrototypeOf(RtfEngine.prototype), 'constructor', this).apply(this, arguments);
+	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(RtfEngine).apply(this, arguments));
 
-	        this.createDocument = _readerCreateDocument2['default'];
-	        this.files = files;
+	        _this.createDocument = _createDocument2.default;
+	        _this.files = files;
+	        return _this;
 	    }
 
 	    _createClass(RtfEngine, null, [{
@@ -102,19 +103,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	        value: function test(file) {
 	            return Boolean(file && _JsFile.Engine.validateFile(file, files));
 	        }
-	    }, {
-	        key: 'mimeTypes',
-	        value: files.mime.slice(0),
-	        enumerable: true
 	    }]);
 
 	    return RtfEngine;
-	})(_JsFile.Engine);
+	}(_JsFile.Engine);
+
+	RtfEngine.mimeTypes = files.mime.slice(0);
 
 	(0, _JsFile.defineEngine)(RtfEngine);
 
-	exports['default'] = RtfEngine;
-	module.exports = exports['default'];
+	exports.default = RtfEngine;
 
 /***/ },
 /* 1 */
@@ -128,35 +126,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	Object.defineProperty(exports, '__esModule', {
+	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
 
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	var _JsFile = __webpack_require__(1);
-
-	var _isPlainText = __webpack_require__(3);
-
-	var _isPlainText2 = _interopRequireDefault(_isPlainText);
-
-	var _getChar = __webpack_require__(4);
-
-	var _getChar2 = _interopRequireDefault(_getChar);
-
-	var _convertMacRoman = __webpack_require__(5);
-
-	var _convertMacRoman2 = _interopRequireDefault(_convertMacRoman);
-
-	var _parsersList = __webpack_require__(6);
-
-	var _parsersList2 = _interopRequireDefault(_parsersList);
-
-	var _addContent = __webpack_require__(15);
-
-	var _addContent2 = _interopRequireDefault(_addContent);
-
-	exports['default'] = function () {
+	exports.default = function () {
 	    var text = arguments.length <= 0 || arguments[0] === undefined ? '' : arguments[0];
 
 	    var fileName = this.fileName;
@@ -195,16 +169,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    }
 
 	                    var next = text[i + 1];
-	                    if (next === '\\' && (0, _isPlainText2['default'])(stackData)) {
-	                        (0, _addContent2['default'])(paragraph, {
+	                    if (next === '\\' && (0, _isPlainText2.default)(stackData)) {
+	                        (0, _addContent2.default)(paragraph, {
 	                            textContent: next
 	                        });
-	                    } else if (next === '~' && (0, _isPlainText2['default'])(stackData)) {
-	                        (0, _addContent2['default'])(paragraph, {
+	                    } else if (next === '~' && (0, _isPlainText2.default)(stackData)) {
+	                        (0, _addContent2.default)(paragraph, {
 	                            textContent: ' '
 	                        });
-	                    } else if (next === '_' && (0, _isPlainText2['default'])(stackData)) {
-	                        (0, _addContent2['default'])(paragraph, {
+	                    } else if (next === '_' && (0, _isPlainText2.default)(stackData)) {
+	                        (0, _addContent2.default)(paragraph, {
 	                            textContent: '-'
 	                        });
 	                    } else if (next === '*') {
@@ -213,18 +187,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	                        //move index on 2 points
 	                        i += 2;
 	                        var hex = text.substr(i, 2);
-	                        if ((0, _isPlainText2['default'])(stackData)) {
+	                        if ((0, _isPlainText2.default)(stackData)) {
 	                            var dec = parseInt(hex, 16);
 	                            if (!stackData.mac || fonts[stackData.f] == 77) {
-	                                (0, _addContent2['default'])(paragraph, {
-	                                    textContent: (0, _convertMacRoman2['default'])(dec)
+	                                (0, _addContent2.default)(paragraph, {
+	                                    textContent: (0, _convertMacRoman2.default)(dec)
 	                                });
 	                            } else if (stackData.ansicpg == '1251' || stackData.lang == '1029') {
-	                                (0, _addContent2['default'])(paragraph, {
-	                                    textContent: (0, _getChar2['default'])(dec)
+	                                (0, _addContent2.default)(paragraph, {
+	                                    textContent: (0, _getChar2.default)(dec)
 	                                });
 	                            } else {
-	                                (0, _addContent2['default'])(paragraph, {
+	                                (0, _addContent2.default)(paragraph, {
 	                                    textContent: String.fromCharCode(dec)
 	                                });
 	                            }
@@ -261,14 +235,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	                        word = word.toLowerCase();
 	                        var parsedContent = '';
 
-	                        if (_parsersList2['default'][word]) {
-	                            var _parsersList$word = _parsersList2['default'][word]();
+	                        if (_parsersList2.default[word]) {
+	                            var _parsersList$word = _parsersList2.default[word]();
 
 	                            var data = _parsersList$word.data;
 	                            var di = _parsersList$word.di;
 
 	                            i += di || 0;
-	                            (0, _addContent2['default'])(paragraph, data);
+	                            (0, _addContent2.default)(paragraph, data);
 	                        } else {
 	                            switch (word) {
 
@@ -291,7 +265,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                                    i += Number(param); //TODO: parse binary data
 	                                    break;
 	                                case 'tab':
-	                                    (0, _addContent2['default'])(paragraph, {
+	                                    (0, _addContent2.default)(paragraph, {
 	                                        textContent: '\t'
 	                                    });
 	                                    break;
@@ -311,13 +285,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	                            }
 	                        }
 
-	                        if (parsedContent && (0, _isPlainText2['default'])(stackData)) {
-	                            (0, _addContent2['default'])(paragraph, {
+	                        if (parsedContent && (0, _isPlainText2.default)(stackData)) {
+	                            (0, _addContent2.default)(paragraph, {
 	                                textContent: parsedContent
 	                            });
 	                        }
 	                    } else {
-	                        (0, _addContent2['default'])(paragraph, {
+	                        (0, _addContent2.default)(paragraph, {
 	                            textContent: ' '
 	                        });
 	                    }
@@ -357,13 +331,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	                case '\t':
 	                    break;
 	                case '\n':
-	                    (0, _addContent2['default'])(paragraph, {
+	                    (0, _addContent2.default)(paragraph, {
 	                        textContent: ch
 	                    });
 	                    break;
 	                default:
-	                    if (stackData && (0, _isPlainText2['default'])(stackData)) {
-	                        (0, _addContent2['default'])(paragraph, {
+	                    if (stackData && (0, _isPlainText2.default)(stackData)) {
+	                        (0, _addContent2.default)(paragraph, {
 	                            textContent: ch
 	                        });
 	                    }
@@ -374,7 +348,29 @@ return /******/ (function(modules) { // webpackBootstrap
 	    });
 	};
 
-	module.exports = exports['default'];
+	var _JsFile = __webpack_require__(1);
+
+	var _isPlainText = __webpack_require__(3);
+
+	var _isPlainText2 = _interopRequireDefault(_isPlainText);
+
+	var _getChar = __webpack_require__(4);
+
+	var _getChar2 = _interopRequireDefault(_getChar);
+
+	var _convertMacRoman = __webpack_require__(5);
+
+	var _convertMacRoman2 = _interopRequireDefault(_convertMacRoman);
+
+	var _parsersList = __webpack_require__(6);
+
+	var _parsersList2 = _interopRequireDefault(_parsersList);
+
+	var _addContent = __webpack_require__(16);
+
+	var _addContent2 = _interopRequireDefault(_addContent);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ },
 /* 3 */
@@ -382,12 +378,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	Object.defineProperty(exports, '__esModule', {
+	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
 	var notTextControls = ['*', 'fonttbl', 'colortbl', 'datastore', 'themedata', 'stylesheet', 'info', 'picw', 'pich'];
 
-	exports['default'] = function (stackData) {
+	exports.default = function (stackData) {
 	    if (!stackData) {
 	        return false;
 	    }
@@ -398,8 +394,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return !found;
 	};
 
-	module.exports = exports['default'];
-
 /***/ },
 /* 4 */
 /***/ function(module, exports) {
@@ -409,8 +403,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-	exports["default"] = chr;
-
+	exports.default = chr;
 	function chr(code) {
 	    /*
 	        Create a four-byte string (length 2) since this code point is high
@@ -425,8 +418,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    return String.fromCharCode(code);
 	}
-
-	module.exports = exports["default"];
 
 /***/ },
 /* 5 */
@@ -452,7 +443,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    242: 218
 	};
 
-	exports["default"] = function (ch) {
+	exports.default = function (ch) {
 	    var code = charCodes[ch];
 
 	    if (code) {
@@ -462,65 +453,67 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return ch;
 	};
 
-	module.exports = exports["default"];
-
 /***/ },
 /* 6 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	Object.defineProperty(exports, '__esModule', {
+	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
 
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	var _rquote = __webpack_require__(7);
 
-	var _controlWordParsersSpecialRquote = __webpack_require__(7);
+	var _rquote2 = _interopRequireDefault(_rquote);
 
-	var _controlWordParsersSpecialRquote2 = _interopRequireDefault(_controlWordParsersSpecialRquote);
+	var _rdblquote = __webpack_require__(8);
 
-	var _controlWordParsersSpecialRdblquote = __webpack_require__(8);
+	var _rdblquote2 = _interopRequireDefault(_rdblquote);
 
-	var _controlWordParsersSpecialRdblquote2 = _interopRequireDefault(_controlWordParsersSpecialRdblquote);
+	var _lquote = __webpack_require__(9);
 
-	var _controlWordParsersSpecialLquote = __webpack_require__(9);
+	var _lquote2 = _interopRequireDefault(_lquote);
 
-	var _controlWordParsersSpecialLquote2 = _interopRequireDefault(_controlWordParsersSpecialLquote);
+	var _ldblquote = __webpack_require__(10);
 
-	var _controlWordParsersSpecialLdblquote = __webpack_require__(10);
+	var _ldblquote2 = _interopRequireDefault(_ldblquote);
 
-	var _controlWordParsersSpecialLdblquote2 = _interopRequireDefault(_controlWordParsersSpecialLdblquote);
+	var _ab = __webpack_require__(11);
 
-	var _controlWordParsersFormattingB = __webpack_require__(11);
+	var _ab2 = _interopRequireDefault(_ab);
 
-	var _controlWordParsersFormattingB2 = _interopRequireDefault(_controlWordParsersFormattingB);
+	var _b = __webpack_require__(12);
 
-	var _controlWordParsersFormattingI = __webpack_require__(12);
+	var _b2 = _interopRequireDefault(_b);
 
-	var _controlWordParsersFormattingI2 = _interopRequireDefault(_controlWordParsersFormattingI);
+	var _i = __webpack_require__(13);
 
-	var _controlWordParsersFormattingUl = __webpack_require__(13);
+	var _i2 = _interopRequireDefault(_i);
 
-	var _controlWordParsersFormattingUl2 = _interopRequireDefault(_controlWordParsersFormattingUl);
+	var _ul = __webpack_require__(14);
 
-	var _controlWordParsersListListtext = __webpack_require__(14);
+	var _ul2 = _interopRequireDefault(_ul);
 
-	var _controlWordParsersListListtext2 = _interopRequireDefault(_controlWordParsersListListtext);
+	var _listtext = __webpack_require__(15);
 
-	exports['default'] = {
-	    rquote: _controlWordParsersSpecialRquote2['default'],
-	    rdblquote: _controlWordParsersSpecialRdblquote2['default'],
-	    lquote: _controlWordParsersSpecialLquote2['default'],
-	    ldblquote: _controlWordParsersSpecialLdblquote2['default'],
+	var _listtext2 = _interopRequireDefault(_listtext);
 
-	    listtext: _controlWordParsersListListtext2['default'],
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	    b: _controlWordParsersFormattingB2['default'],
-	    i: _controlWordParsersFormattingI2['default'],
-	    ul: _controlWordParsersFormattingUl2['default']
+	exports.default = {
+	    ab: _ab2.default,
+	    rquote: _rquote2.default,
+	    rdblquote: _rdblquote2.default,
+	    lquote: _lquote2.default,
+	    ldblquote: _ldblquote2.default,
+
+	    listtext: _listtext2.default,
+
+	    b: _b2.default,
+	    i: _i2.default,
+	    ul: _ul2.default
 	};
-	module.exports = exports['default'];
 
 /***/ },
 /* 7 */
@@ -528,11 +521,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	Object.defineProperty(exports, '__esModule', {
+	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
 
-	exports['default'] = function () {
+	exports.default = function () {
 	    return {
 	        di: 1,
 	        data: {
@@ -541,19 +534,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	    };
 	};
 
-	module.exports = exports['default'];
-
 /***/ },
 /* 8 */
 /***/ function(module, exports) {
 
 	'use strict';
 
-	Object.defineProperty(exports, '__esModule', {
+	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
 
-	exports['default'] = function () {
+	exports.default = function () {
 	    return {
 	        di: 1,
 	        data: {
@@ -562,19 +553,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	    };
 	};
 
-	module.exports = exports['default'];
-
 /***/ },
 /* 9 */
 /***/ function(module, exports) {
 
 	'use strict';
 
-	Object.defineProperty(exports, '__esModule', {
+	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
 
-	exports['default'] = function () {
+	exports.default = function () {
 	    return {
 	        di: 1,
 	        data: {
@@ -583,19 +572,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	    };
 	};
 
-	module.exports = exports['default'];
-
 /***/ },
 /* 10 */
 /***/ function(module, exports) {
 
 	'use strict';
 
-	Object.defineProperty(exports, '__esModule', {
+	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
 
-	exports['default'] = function () {
+	exports.default = function () {
 	    return {
 	        di: 1,
 	        data: {
@@ -604,21 +591,37 @@ return /******/ (function(modules) { // webpackBootstrap
 	    };
 	};
 
-	module.exports = exports['default'];
-
 /***/ },
 /* 11 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	Object.defineProperty(exports, '__esModule', {
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _b = __webpack_require__(12);
+
+	var _b2 = _interopRequireDefault(_b);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.default = _b2.default;
+
+/***/ },
+/* 12 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
 
 	var _JsFile = __webpack_require__(1);
 
-	exports['default'] = function () {
+	exports.default = function () {
 	    var el = _JsFile.Document.elementPrototype;
 	    el.properties.tagName = 'SPAN';
 	    el.style.fontWeight = 'bold';
@@ -630,21 +633,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	    };
 	};
 
-	module.exports = exports['default'];
-
 /***/ },
-/* 12 */
+/* 13 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	Object.defineProperty(exports, '__esModule', {
+	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
 
 	var _JsFile = __webpack_require__(1);
 
-	exports['default'] = function () {
+	exports.default = function () {
 	    var el = _JsFile.Document.elementPrototype;
 	    el.properties.tagName = 'SPAN';
 	    el.style.fontStyle = 'italic';
@@ -656,21 +657,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	    };
 	};
 
-	module.exports = exports['default'];
-
 /***/ },
-/* 13 */
+/* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	Object.defineProperty(exports, '__esModule', {
+	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
 
 	var _JsFile = __webpack_require__(1);
 
-	exports['default'] = function () {
+	exports.default = function () {
 	    var el = _JsFile.Document.elementPrototype;
 	    el.properties.tagName = 'SPAN';
 	    el.style.textDecoration = 'underline';
@@ -682,21 +681,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	    };
 	};
 
-	module.exports = exports['default'];
-
 /***/ },
-/* 14 */
+/* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	Object.defineProperty(exports, '__esModule', {
+	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
 
 	var _JsFile = __webpack_require__(1);
 
-	exports['default'] = function () {
+	exports.default = function () {
 	    var el = _JsFile.Document.elementPrototype;
 	    el.properties.tagName = 'LI';
 
@@ -707,21 +704,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	    };
 	};
 
-	module.exports = exports['default'];
-
 /***/ },
-/* 15 */
+/* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	Object.defineProperty(exports, '__esModule', {
+	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
 
 	var _JsFile = __webpack_require__(1);
 
-	exports['default'] = function (el, _ref) {
+	exports.default = function (el, _ref) {
 	    var textContent = _ref.textContent;
 	    var children = _ref.children;
 
@@ -742,8 +737,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    return el;
 	};
-
-	module.exports = exports['default'];
 
 /***/ }
 /******/ ])

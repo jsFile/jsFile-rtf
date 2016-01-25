@@ -1,4 +1,4 @@
-export default function (params = {}) {
+export default function () {
     //let {parseParams, parseResult, param} = params,
     //    count,
     //    currentRowIndex,

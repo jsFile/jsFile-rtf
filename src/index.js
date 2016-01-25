@@ -11,16 +11,18 @@ const files = {
 };
 
 class RtfEngine extends Engine {
-    createDocument = createDocument
-
-    files = files
+    constructor () {
+        super(...arguments);
+        this.createDocument = createDocument;
+        this.files = files;
+    }
 
     static test (file) {
         return Boolean(file && Engine.validateFile(file, files));
     }
-
-    static mimeTypes = files.mime.slice(0)
 }
+
+RtfEngine.mimeTypes = files.mime.slice(0);
 
 defineEngine(RtfEngine);
 
