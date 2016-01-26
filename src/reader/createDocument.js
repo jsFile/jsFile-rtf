@@ -5,7 +5,7 @@ import convertMacRoman from './convertMacRoman';
 import parsersList from './parsersList';
 import addContent from './addContent';
 
-export default function (text = '') {
+export default function createDocument (text = '') {
     const fileName = this.fileName;
     return new Promise((resolve) => {
         const result = {
