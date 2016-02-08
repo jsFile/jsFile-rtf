@@ -1,5 +1,7 @@
-import {Engine, defineEngine} from 'JsFile';
+import JsFile from 'JsFile';
 import createDocument from './reader/createDocument';
+
+const {Engine} = JsFile;
 
 /**
  * @description Supported files by engine
@@ -23,7 +25,5 @@ class RtfEngine extends Engine {
 }
 
 RtfEngine.mimeTypes = files.mime.slice(0);
-
-defineEngine(RtfEngine);
 
 export default RtfEngine;

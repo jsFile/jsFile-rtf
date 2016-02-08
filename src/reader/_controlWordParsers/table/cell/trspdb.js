@@ -14,9 +14,9 @@ export default function (params = {}) {
         }
 
         styles.cells.style.paddingBottom = styles.cells.style.paddingBottom || {
-            value: 0,
-            unit
-        };
+                value: 0,
+                unit
+            };
 
         styles.cells.style.paddingBottom.value += value;
     }

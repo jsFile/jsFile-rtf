@@ -1,6 +1,8 @@
-import {Document} from 'JsFile';
+import JsFile from 'JsFile';
 
-export default (el, {textContent, children}) => {
+const {Document} = JsFile;
+
+export default function addContent (el, {textContent, children}) {
 
     if (children) {
         el.children.push.apply(el.children, children);
@@ -18,4 +20,4 @@ export default (el, {textContent, children}) => {
     }
 
     return el;
-};
+}

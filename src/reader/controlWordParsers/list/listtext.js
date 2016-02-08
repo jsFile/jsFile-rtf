@@ -1,6 +1,8 @@
-import {Document} from 'JsFile';
+import JsFile from 'JsFile';
 
-export default () => {
+const {Document} = JsFile;
+
+export default function listtext () {
     const el = Document.elementPrototype;
     el.properties.tagName = 'LI';
 
@@ -9,4 +11,4 @@ export default () => {
             children: [el]
         }
     };
-};
+}

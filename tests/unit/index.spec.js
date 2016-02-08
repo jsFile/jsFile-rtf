@@ -13,10 +13,7 @@ describe('jsFile-rtf', () => {
 
     before(() => {
         files = window.files;
-    });
-
-    it('should exist', () => {
-        assert.isFunction(RtfEngine);
+        JsFile.defineEngine(RtfEngine);
     });
 
     it('should have files for testing', () => {

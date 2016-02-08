@@ -1,7 +1,8 @@
-import {Engine} from 'JsFile';
-const {getMaxFontSize} = Engine;
+import JsFile from 'JsFile';
 
-export default function (params = {}) {
+const {getMaxFontSize} = JsFile.Engine;
+
+export default function sl (params = {}) {
     let {currentElement, currentElementParent, param} = params;
     const el = currentElement || currentElementParent;
 

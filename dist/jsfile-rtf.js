@@ -56,13 +56,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
 
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 	var _JsFile = __webpack_require__(1);
+
+	var _JsFile2 = _interopRequireDefault(_JsFile);
 
 	var _createDocument = __webpack_require__(2);
 
@@ -76,10 +78,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+	var Engine = _JsFile2.default.Engine;
+
 	/**
 	 * @description Supported files by engine
 	 * @type {{extension: Array, mime: Array}}
 	 */
+
 	var files = {
 	    extension: ['rtf'],
 	    mime: ['text/rtf', 'application/rtf']
@@ -101,16 +106,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	    _createClass(RtfEngine, null, [{
 	        key: 'test',
 	        value: function test(file) {
-	            return Boolean(file && _JsFile.Engine.validateFile(file, files));
+	            return Boolean(file && Engine.validateFile(file, files));
 	        }
 	    }]);
 
 	    return RtfEngine;
-	}(_JsFile.Engine);
+	}(Engine);
 
 	RtfEngine.mimeTypes = files.mime.slice(0);
-
-	(0, _JsFile.defineEngine)(RtfEngine);
 
 	exports.default = RtfEngine;
 
@@ -129,8 +132,36 @@ return /******/ (function(modules) { // webpackBootstrap
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
+	exports.default = createDocument;
 
-	exports.default = function () {
+	var _JsFile = __webpack_require__(1);
+
+	var _JsFile2 = _interopRequireDefault(_JsFile);
+
+	var _isPlainText = __webpack_require__(3);
+
+	var _isPlainText2 = _interopRequireDefault(_isPlainText);
+
+	var _getChar = __webpack_require__(4);
+
+	var _getChar2 = _interopRequireDefault(_getChar);
+
+	var _convertMacRoman = __webpack_require__(5);
+
+	var _convertMacRoman2 = _interopRequireDefault(_convertMacRoman);
+
+	var _parsersList = __webpack_require__(6);
+
+	var _parsersList2 = _interopRequireDefault(_parsersList);
+
+	var _addContent = __webpack_require__(16);
+
+	var _addContent2 = _interopRequireDefault(_addContent);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var Document = _JsFile2.default.Document;
+	function createDocument() {
 	    var text = arguments.length <= 0 || arguments[0] === undefined ? '' : arguments[0];
 
 	    var fileName = this.fileName;
@@ -143,7 +174,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        };
 
 	        if (!text[0]) {
-	            return resolve(new _JsFile.Document(result));
+	            return resolve(new Document(result));
 	        }
 
 	        //Escape Unicode
@@ -152,8 +183,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	        var stack = [];
 	        var fonts = [];
 	        var j = -1;
-	        var page = _JsFile.Document.elementPrototype;
-	        var paragraph = _JsFile.Document.elementPrototype;
+	        var page = Document.elementPrototype;
+	        var paragraph = Document.elementPrototype;
 	        paragraph.properties.tagName = 'P';
 	        page.children.push(paragraph);
 	        result.content.push(page);
@@ -257,7 +288,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                                    break;
 	                                case 'page':
 	                                    page.children.pop();
-	                                    page = _JsFile.Document.elementPrototype;
+	                                    page = Document.elementPrototype;
 	                                    page.children.push(paragraph);
 	                                    result.content.push(page);
 	                                    break;
@@ -273,7 +304,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                                    fonts[stackData.f] = param;
 	                                    break;
 	                                case 'par':
-	                                    paragraph = _JsFile.Document.elementPrototype;
+	                                    paragraph = Document.elementPrototype;
 	                                    paragraph.properties.tagName = 'P';
 	                                    page.children.push(paragraph);
 	                                    break;
@@ -316,7 +347,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                case '}':
 
 	                    //clear old value
-	                    var el = _JsFile.Document.elementPrototype;
+	                    var el = Document.elementPrototype;
 	                    el.properties.tagName = 'SPAN';
 	                    paragraph.children.push(el);
 
@@ -344,33 +375,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	            }
 	        }
 
-	        resolve(new _JsFile.Document(result));
+	        resolve(new Document(result));
 	    });
-	};
-
-	var _JsFile = __webpack_require__(1);
-
-	var _isPlainText = __webpack_require__(3);
-
-	var _isPlainText2 = _interopRequireDefault(_isPlainText);
-
-	var _getChar = __webpack_require__(4);
-
-	var _getChar2 = _interopRequireDefault(_getChar);
-
-	var _convertMacRoman = __webpack_require__(5);
-
-	var _convertMacRoman2 = _interopRequireDefault(_convertMacRoman);
-
-	var _parsersList = __webpack_require__(6);
-
-	var _parsersList2 = _interopRequireDefault(_parsersList);
-
-	var _addContent = __webpack_require__(16);
-
-	var _addContent2 = _interopRequireDefault(_addContent);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	}
 
 /***/ },
 /* 3 */
@@ -406,10 +413,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.default = chr;
 	function chr(code) {
 	    /*
-	        Create a four-byte string (length 2) since this code point is high
-	        enough for the UTF-16 encoding (JavaScript internal use), to
-	        require representation with two surrogates (reserved non-characters
-	        used for building other characters; the first is "high" and the next "low")
+	     Create a four-byte string (length 2) since this code point is high
+	     enough for the UTF-16 encoding (JavaScript internal use), to
+	     require representation with two surrogates (reserved non-characters
+	     used for building other characters; the first is "high" and the next "low")
 	     */
 	    if (code > 0xFFFF) {
 	        code -= 0x10000;
@@ -618,11 +625,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
+	exports.default = b;
 
 	var _JsFile = __webpack_require__(1);
 
-	exports.default = function () {
-	    var el = _JsFile.Document.elementPrototype;
+	var _JsFile2 = _interopRequireDefault(_JsFile);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var Document = _JsFile2.default.Document;
+	function b() {
+	    var el = Document.elementPrototype;
 	    el.properties.tagName = 'SPAN';
 	    el.style.fontWeight = 'bold';
 
@@ -631,7 +644,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            children: [el]
 	        }
 	    };
-	};
+	}
 
 /***/ },
 /* 13 */
@@ -642,11 +655,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
+	exports.default = i;
 
 	var _JsFile = __webpack_require__(1);
 
-	exports.default = function () {
-	    var el = _JsFile.Document.elementPrototype;
+	var _JsFile2 = _interopRequireDefault(_JsFile);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var Document = _JsFile2.default.Document;
+	function i() {
+	    var el = Document.elementPrototype;
 	    el.properties.tagName = 'SPAN';
 	    el.style.fontStyle = 'italic';
 
@@ -655,7 +674,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            children: [el]
 	        }
 	    };
-	};
+	}
 
 /***/ },
 /* 14 */
@@ -666,11 +685,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
+	exports.default = ul;
 
 	var _JsFile = __webpack_require__(1);
 
-	exports.default = function () {
-	    var el = _JsFile.Document.elementPrototype;
+	var _JsFile2 = _interopRequireDefault(_JsFile);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var Document = _JsFile2.default.Document;
+	function ul() {
+	    var el = Document.elementPrototype;
 	    el.properties.tagName = 'SPAN';
 	    el.style.textDecoration = 'underline';
 
@@ -679,7 +704,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            children: [el]
 	        }
 	    };
-	};
+	}
 
 /***/ },
 /* 15 */
@@ -690,11 +715,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
+	exports.default = listtext;
 
 	var _JsFile = __webpack_require__(1);
 
-	exports.default = function () {
-	    var el = _JsFile.Document.elementPrototype;
+	var _JsFile2 = _interopRequireDefault(_JsFile);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var Document = _JsFile2.default.Document;
+	function listtext() {
+	    var el = Document.elementPrototype;
 	    el.properties.tagName = 'LI';
 
 	    return {
@@ -702,7 +733,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            children: [el]
 	        }
 	    };
-	};
+	}
 
 /***/ },
 /* 16 */
@@ -713,12 +744,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
+	exports.default = addContent;
 
 	var _JsFile = __webpack_require__(1);
 
-	exports.default = function (el, _ref) {
+	var _JsFile2 = _interopRequireDefault(_JsFile);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var Document = _JsFile2.default.Document;
+	function addContent(el, _ref) {
 	    var textContent = _ref.textContent;
 	    var children = _ref.children;
+
 
 	    if (children) {
 	        el.children.push.apply(el.children, children);
@@ -727,7 +765,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        var child = el.children[len - 1];
 
 	        if (!child || child.properties.tagName !== 'SPAN') {
-	            child = _JsFile.Document.elementPrototype;
+	            child = Document.elementPrototype;
 	            child.properties.tagName = 'SPAN';
 	            el.children.push(child);
 	        }
@@ -736,7 +774,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 
 	    return el;
-	};
+	}
 
 /***/ }
 /******/ ])

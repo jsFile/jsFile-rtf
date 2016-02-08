@@ -8,6 +8,7 @@
     "disallowSpacesInAnonymousFunctionExpression": null,
     "requireTrailingComma": null,
     "requireLineFeedAtFileEnd": null,
+    "validateLineBreaks": null,
     "disallowImplicitTypeConversion": ["numeric", "boolean", "string"],
     "requireSpacesInsideObjectBrackets": null,
     "requirePaddingNewLinesAfterBlocks": {

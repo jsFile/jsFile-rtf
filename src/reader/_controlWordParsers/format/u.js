@@ -3,7 +3,7 @@ export default function (params = {}) {
 
     if (currentElement && param) {
         currentElement.properties.textContent = (currentElement.properties.textContent || '') +
-        String.fromCharCode(param);
+            String.fromCharCode(param);
     }
 
     return params;

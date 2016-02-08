@@ -1,9 +1,11 @@
-import {Document} from 'JsFile';
+import JsFile from 'JsFile';
 import isPlainText from './isPlainText';
 import getChar from './getChar';
 import convertMacRoman from './convertMacRoman';
 import parsersList from './parsersList';
 import addContent from './addContent';
+
+const {Document} = JsFile;
 
 export default function createDocument (text = '') {
     const fileName = this.fileName;

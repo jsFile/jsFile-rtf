@@ -14,9 +14,9 @@ export default function (params = {}) {
         }
 
         styles.cells.style.paddingRight = styles.cells.style.paddingRight || {
-            value: 0,
-            unit
-        };
+                value: 0,
+                unit
+            };
 
         styles.cells.style.paddingRight.value += value;
     }

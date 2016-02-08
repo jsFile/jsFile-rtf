@@ -1,6 +1,8 @@
-import {Document} from 'JsFile';
+import JsFile from 'JsFile';
 
-export default () => {
+const {Document} = JsFile;
+
+export default function ul () {
     const el = Document.elementPrototype;
     el.properties.tagName = 'SPAN';
     el.style.textDecoration = 'underline';
@@ -10,4 +12,4 @@ export default () => {
             children: [el]
         }
     };
-};
+}
